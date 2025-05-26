@@ -19,7 +19,11 @@ def run_command(cmd, description):
         result = subprocess.run(cmd, shell=True, check=True, capture_output=True, text=True)
         print("Success")
         if result.stdout:
+            print("STDOUT:")
             print(result.stdout)
+        if result.stderr:
+            print("STDERR:")
+            print(result.stderr)
         return True
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
@@ -133,6 +137,10 @@ exe = EXE(
     if not run_command(build_cmd, "Building executable with PyInstaller..."):
         print("Failed to build executable")
         sys.exit(1)
+    
+    # List contents of dist directory for diagnostics
+    print("\nContents of dist/ directory after build:")
+    print(list(dist_dir.glob("*")))
     
     # Check if executable was created (handle different platforms)
     exe_path_windows = Path("dist/Arkansas_Registry_Processor.exe")
