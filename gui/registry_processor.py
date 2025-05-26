@@ -14,6 +14,7 @@ from selenium.common.exceptions import TimeoutException
 from datetime import datetime
 import sys
 import platform
+from webdriver_manager.chrome import ChromeDriverManager
 
 class RegistryProcessor:
     def __init__(self, progress_callback=None, status_callback=None):
@@ -28,6 +29,7 @@ class RegistryProcessor:
         self.status_callback = status_callback
         self.driver = None
         self.should_stop = False
+        self.disclaimer_accepted = False  # Track if disclaimer has been accepted
         
     def _log_status(self, message):
         """Log status message to callback if available"""
@@ -44,39 +46,23 @@ class RegistryProcessor:
         """Initialize the headless Chrome driver"""
         try:
             self._log_status("Initializing browser...")
-            
             chrome_options = Options()
             # Disable location requests
             prefs = {"profile.default_content_setting_values.geolocation": 2}
             chrome_options.add_experimental_option("prefs", prefs)
-            
             # Headless mode configuration
-            # chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--headless=new')
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('--disable-dev-shm-usage')
             chrome_options.add_argument('--disable-gpu')
             chrome_options.add_argument('--window-size=1920,1080')
             chrome_options.add_argument('--disable-web-security')
             chrome_options.add_argument('--disable-features=VizDisplayCompositor')
-            
-            # Determine ChromeDriver path based on platform
-            if platform.system() == "Windows":
-                # For Windows executable, ChromeDriver should be in the same directory
-                if getattr(sys, 'frozen', False):
-                    # Running as compiled executable
-                    driver_path = os.path.join(sys._MEIPASS, 'chromedriver.exe')
-                else:
-                    # Running as script, assume chromedriver is in PATH or local
-                    driver_path = 'chromedriver.exe'
-            else:
-                # Mac/Linux
-                driver_path = '/opt/homebrew/bin/chromedriver'
-            
-            service = Service(driver_path)
+            # Use webdriver-manager to handle ChromeDriver
+            service = Service(ChromeDriverManager().install())
             self.driver = webdriver.Chrome(service=service, options=chrome_options)
             self._log_status("Browser initialized successfully")
             return True
-            
         except Exception as e:
             self._log_status(f"Error initializing browser: {str(e)}")
             return False
@@ -141,20 +127,23 @@ class RegistryProcessor:
             self.driver.get(url)
             time.sleep(2)
             
-            # Handle disclaimer if present
-            try:
-                agree_button = WebDriverWait(self.driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'I Agree to the Disclaimer Above')]") )
-                )
-                # Scroll to the very bottom of the page
-                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(0.7)
-                # Force click the button with JavaScript
-                self.driver.execute_script("arguments[0].click();", agree_button)
-                time.sleep(1)
-            except Exception as e:
-                self._log_status(f"Disclaimer button not found or not clickable: {e}")
-                pass  # No disclaimer found or already accepted
+            # Handle disclaimer if present, only on first search
+            if not self.disclaimer_accepted:
+                try:
+                    agree_button = WebDriverWait(self.driver, 5).until(
+                        EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'I Agree to the Disclaimer Above')]") )
+                    )
+                    # Scroll to the very bottom of the page
+                    self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                    time.sleep(0.7)
+                    # Force click the button with JavaScript
+                    self.driver.execute_script("arguments[0].click();", agree_button)
+                    time.sleep(1)
+                    self.disclaimer_accepted = True
+                except Exception as e:
+                    self._log_status(f"Disclaimer button not found or not clickable: {e}")
+                    # Even if not found, set as accepted to avoid repeated attempts
+                    self.disclaimer_accepted = True
             
             # Click Name Search tab
             WebDriverWait(self.driver, 10).until(
