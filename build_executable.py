@@ -91,7 +91,7 @@ a = Analysis(
         'webdriver_manager.microsoft',
         'webdriver_manager.utils'
     ],
-    hookspath=[],
+    hookspath=['.'],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[
