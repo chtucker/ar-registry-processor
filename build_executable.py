@@ -90,7 +90,6 @@ a = Analysis(
     runtime_hooks=[],
     excludes=[
         'matplotlib',
-        'numpy.random._pickle',
         'IPython',
         'jupyter'
     ],
