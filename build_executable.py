@@ -69,7 +69,7 @@ block_cipher = None
 
 a = Analysis(
     ['gui/main_app.py'],
-    pathex=[],
+    pathex=['.'],
     binaries=[],
     datas=[],
     hiddenimports=[
