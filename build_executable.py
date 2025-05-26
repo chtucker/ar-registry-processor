@@ -84,7 +84,12 @@ a = Analysis(
         'tkinter.ttk',
         'tkinter.filedialog',
         'tkinter.messagebox',
-        'webdriver_manager'
+        'webdriver_manager',
+        'webdriver_manager.chrome',
+        'webdriver_manager.core',
+        'webdriver_manager.firefox',
+        'webdriver_manager.microsoft',
+        'webdriver_manager.utils'
     ],
     hookspath=[],
     hooksconfig={},
