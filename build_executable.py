@@ -154,7 +154,7 @@ exe = EXE(
         print("\n✗ Executable not found in expected location")
         sys.exit(1)
     
-    print(f"\n✓ Executable created successfully!")
+    print("\nExecutable created successfully!")
     print(f"Location: {exe_path.absolute()}")
     print(f"Size: {exe_path.stat().st_size / (1024*1024):.1f} MB")
     
