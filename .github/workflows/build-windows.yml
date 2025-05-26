@@ -24,21 +24,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements_gui.txt
     
-    - name: Download ChromeDriver
-      run: |
-        # Download ChromeDriver for Windows
-        $chromeVersion = (Get-Item "C:\Program Files\Google\Chrome\Application\chrome.exe").VersionInfo.ProductVersion
-        $majorVersion = $chromeVersion.Split('.')[0]
-        Write-Host "Chrome version: $chromeVersion, Major: $majorVersion"
-        
-        # Download appropriate ChromeDriver
-        Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$majorVersion" -OutFile "latest.txt"
-        $latestVersion = Get-Content "latest.txt"
-        Write-Host "ChromeDriver version: $latestVersion"
-        
-        Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/$latestVersion/chromedriver_win32.zip" -OutFile "chromedriver.zip"
-        Expand-Archive -Path "chromedriver.zip" -DestinationPath "."
-        
     - name: Build executable
       run: |
         python build_executable.py
