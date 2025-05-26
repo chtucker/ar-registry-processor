@@ -1,5 +1,29 @@
 # Arkansas Registry Processor - Usage Guide
 
+## Project Status & Next Steps (as of 2025-05-26)
+
+### Current State
+- Mac GUI app is fully functional and processes Excel files end-to-end.
+- ChromeDriver and Selenium integration confirmed (Chrome 137, ChromeDriver 137).
+- Disclaimer is accepted using JavaScript force-click after scrolling to the bottom.
+- Output file is generated with real search results.
+- Minimal/basic GUI mode is used for maximum compatibility on macOS.
+
+### Next Steps
+1. **Test in headless mode:**
+   - Re-enable headless Chrome in `gui/registry_processor.py`.
+   - Ensure force-click works in headless mode.
+2. **Update GUI:**
+   - Restore or improve modern card-based layout and styles.
+   - Ensure cross-platform compatibility.
+3. **Final testing:**
+   - Test with full Excel files and edge cases.
+4. **Build Windows executable:**
+   - Use GitHub Actions or a Windows machine to build the `.exe`.
+   - Test and document Windows deployment.
+
+---
+
 ## Overview
 The Arkansas Registry Processor is a GUI application that automates searching names from Excel files against the Arkansas Sex Offender Registry website. It provides a user-friendly interface for non-technical staff to process large batches of names efficiently.
 

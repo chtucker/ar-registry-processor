@@ -1,4 +1,38 @@
 ## [Unreleased]
+- **Mac GUI app now fully functional:**
+  - Successfully processes Excel files and outputs results.
+  - ChromeDriver and Selenium integration confirmed working (Chrome 137, ChromeDriver 137).
+  - Disclaimer button is now reliably accepted using JavaScript force-click after scrolling to the bottom.
+  - Output file is generated with real search results.
+- **Robust error handling for disclaimer acceptance.**
+- **Minimal GUI mode tested for maximum compatibility on macOS.**
+- **Manual and automated tests confirm end-to-end workflow.**
+
+## Next Steps
+1. **Test in headless mode:**
+   - Re-enable headless Chrome in `gui/registry_processor.py`.
+   - Ensure the JavaScript force-click works in headless mode.
+   - Confirm output is correct and no stacktrace errors occur.
+2. **Update GUI:**
+   - Restore or improve modern card-based layout and styles.
+   - Ensure compatibility with both Mac and Windows.
+   - Test all user interactions and error handling.
+3. **Final testing:**
+   - Test with full Excel files and edge cases.
+   - Confirm robust error handling and user feedback.
+4. **Build Windows executable:**
+   - Use GitHub Actions or a Windows machine to build the `.exe`.
+   - Test the executable on a Windows system.
+   - Update documentation for Windows deployment.
+
+## How to Resume Work
+- Review this changelog and `USAGE_GUIDE.md` for current state and setup.
+- Start with headless mode testing in `gui/registry_processor.py`.
+- Continue with GUI improvements and cross-platform testing.
+- Proceed to Windows packaging and deployment.
+
+**All code and documentation are up to date as of 2025-05-26.**
+
 - Added `scripts/extract_names_v1.py` to extract first and last names from columns B and D of `docs/NEWAdultstotheDatabaseinlastMonth.xlsx`.
 - Output is saved to `data/extracted_names_v1.csv`.
 - This script is standalone and does not affect main project files.
