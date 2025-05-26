@@ -4,6 +4,7 @@ import threading
 import os
 from datetime import datetime
 import sys
+import webdriver_manager
 
 # Add the parent directory to the path to import our modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
