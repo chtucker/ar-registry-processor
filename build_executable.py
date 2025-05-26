@@ -129,7 +129,7 @@ exe = EXE(
     print("Created PyInstaller spec file")
     
     # Build the executable  
-    build_cmd = "/Users/chtucker/Library/Python/3.9/bin/pyinstaller --clean registry_processor.spec"
+    build_cmd = "pyinstaller --clean registry_processor.spec"
     if not run_command(build_cmd, "Building executable with PyInstaller..."):
         print("Failed to build executable")
         sys.exit(1)
