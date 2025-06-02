@@ -86,4 +86,14 @@ Once built on Windows, the `dist/` folder will contain:
 The application is 100% ready - just needs to be compiled on Windows to create the `.exe` file.
 
 ## Alternative: Cross-Platform Build
-If you have access to GitHub Actions or similar CI/CD, I can help set up automated Windows builds. 
+If you have access to GitHub Actions or similar CI/CD, I can help set up automated Windows builds.
+
+## webdriver_manager Dependency
+- Ensure `webdriver_manager` is listed in `requirements_gui.txt`.
+- This allows PyInstaller to bundle it and manage ChromeDriver automatically.
+- No manual ChromeDriver download or setup is needed.
+
+## Troubleshooting PyInstaller Builds
+- If you see 'No module named ...', make sure the package is in `requirements_gui.txt`.
+- If you see ChromeDriver or browser errors, ensure Chrome is installed and up to date.
+- For persistent issues, try a clean build (delete `dist/`, `build/`, and `.spec` files before rebuilding). 

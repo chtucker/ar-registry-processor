@@ -7,6 +7,10 @@
 - **Robust error handling for disclaimer acceptance.**
 - **Minimal GUI mode tested for maximum compatibility on macOS.**
 - **Manual and automated tests confirm end-to-end workflow.**
+- Successful Windows executable build via GitHub Actions.
+- Added webdriver_manager to requirements and ensured it is bundled in the build.
+- Implemented PyInstaller hook for webdriver_manager to resolve module import issues.
+- Updated documentation for new build and troubleshooting process.
 
 ## Next Steps
 1. **Test in headless mode:**

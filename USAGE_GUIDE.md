@@ -124,6 +124,19 @@ The application includes comprehensive error handling:
 - Executable size: ~50-100MB (includes all dependencies)
 - Network: Requires stable internet connection
 
+## Windows Executable Usage
+
+- The Windows executable now bundles all dependencies, including webdriver_manager.
+- No manual ChromeDriver download or setup is required.
+- Simply download and run the executable on Windows 10 or later.
+- If you encounter errors about missing modules, ensure you are using the latest version from the GitHub Actions build artifacts.
+- For ChromeDriver/browser issues, ensure Chrome is installed and up to date on your system.
+
+### Troubleshooting
+- If you see a 'No module named ...' error, download the latest build or contact support.
+- For issues with Excel file formats, ensure your file matches the required template (see above).
+- For any other issues, consult the logs or contact the developer.
+
 ## Support and Maintenance
 
 ### Common Issues
